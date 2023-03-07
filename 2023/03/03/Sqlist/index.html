@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Sqlist | 鼠鼠的藏宝洞</title><meta name="author" content="Hisense Silverhand,Hiterwyq@outlook.com"><meta name="copyright" content="Hisense Silverhand"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="顺序表的类型定义：  顺序表的逻辑结构与物理结构相同，可用一维数组来表示，但是需要实现对表的增删改查，这会改变表的长度。 故定义类型Sqlist,其中包括一维数组elem、表示顺序表当前长度的整型变量length #define LIST_INIT_SIZE 100  &#x2F;&#x2F; 线性表存储空间的初始分配量typedef struct&amp;#123;    Elemtype elem[LIST_INIT_S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sqlist">
+<meta property="og:url" content="http://hisensesilverhand.github.io/2023/03/03/Sqlist/index.html">
+<meta property="og:site_name" content="鼠鼠的藏宝洞">
+<meta property="og:description" content="顺序表的类型定义：  顺序表的逻辑结构与物理结构相同，可用一维数组来表示，但是需要实现对表的增删改查，这会改变表的长度。 故定义类型Sqlist,其中包括一维数组elem、表示顺序表当前长度的整型变量length #define LIST_INIT_SIZE 100  &#x2F;&#x2F; 线性表存储空间的初始分配量typedef struct&amp;#123;    Elemtype elem[LIST_INIT_S">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images6.alphacoders.com/790/790867.jpg">
+<meta property="article:published_time" content="2023-03-03T05:44:58.000Z">
+<meta property="article:modified_time" content="2023-03-07T11:57:56.604Z">
+<meta property="article:author" content="Hisense Silverhand">
+<meta property="article:tag" content="Data Structure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images6.alphacoders.com/790/790867.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://hisensesilverhand.github.io/2023/03/03/Sqlist/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":50},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Sqlist',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-07 19:57:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://images6.alphacoders.com/790/790867.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">鼠鼠的藏宝洞</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Sqlist</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-03T05:44:58.000Z" title="发表于 2023-03-03 13:44:58">2023-03-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-07T11:57:56.604Z" title="更新于 2023-03-07 19:57:56">2023-03-07</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Sqlist"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="顺序表的类型定义：">顺序表的类型定义：</h2>
+<p> 顺序表的逻辑结构与物理结构相同，可用一维数组来表示，但是需要实现对表的增删改查，这会改变表的长度。<br>
+故定义类型Sqlist,其中包括一维数组elem、表示顺序表当前长度的整型变量length</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> LIST_INIT_SIZE 100  <span class="comment">// 线性表存储空间的初始分配量</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Elemtype elem[LIST_INIT_SIZE];</span><br><span class="line">    <span class="type">int</span> length;     <span class="comment">//线性表当前长度</span></span><br><span class="line">&#125;Sqlist;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在顺序表定义中使用动态分配的数组（类C）</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    Elemtype *elem;</span><br><span class="line">    <span class="type">int</span> length;     <span class="comment">//线性表当前长度</span></span><br><span class="line">&#125;Sqlist;</span><br><span class="line"></span><br><span class="line">Sqlist L;</span><br><span class="line">L.elem = (Elemtype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ElemType) * MaxSize);</span><br><span class="line"><span class="comment">// 用完之后可以销毁malloc动态分配的存储区域</span></span><br><span class="line"><span class="built_in">free</span>(L.elem);</span><br></pre></td></tr></table></figure>
+<h2 id="顺序表基本操作的实现">顺序表基本操作的实现</h2>
+<p>线性表的基本操作：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">InitList(&amp;L)    <span class="comment">//初始化操作，建立一个空的线性表L</span></span><br><span class="line">DestroyList(&amp;L) <span class="comment">//销毁已存在的线性表L</span></span><br><span class="line">ClearList(&amp;L)   <span class="comment">//将线性表清空</span></span><br><span class="line">ListInsert(&amp;L, i, e)    <span class="comment">//在线性表L中第i个位置插入e</span></span><br><span class="line">ListDelete(&amp;L, i, &amp;e)   <span class="comment">//删除线性表L中的第i个元素，用e返回</span></span><br><span class="line">IsEmpty(L)  <span class="comment">//若线性表为空，返回true,否则返回false</span></span><br><span class="line">ListLength(L)   <span class="comment">//返回线性表L中元素的个数</span></span><br><span class="line">LocateElem(L, e)    <span class="comment">//在L中查找与给定值e相等的元素，若成功则返回第一个与e相等的元素的下标，失败则返回0</span></span><br><span class="line">GetElem(L, i, &amp;e)   <span class="comment">//将线性表L中的第i个元素返回给e</span></span><br></pre></td></tr></table></figure>
+<p>通用算法中预定义了一些常量和类型作为函数结果状态的表示，如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> TRUE 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FALSE 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ERROR 0 </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INFEASIBLE -1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> OVERFLOW -2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Status是函数的类型，其值是函数结果状态值，</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> Status</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> Elemtype</span><br></pre></td></tr></table></figure>
+<h3 id="InitList函数的实现-顺序表L的初始化">InitList函数的实现-顺序表L的初始化</h3>
+<p>王卓课上的伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> OVERFLOW -2</span></span><br><span class="line"><span class="function">Status <span class="title">InitList_Sq</span><span class="params">(SqList &amp;L)</span></span>&#123;  <span class="comment">//创造一个空的顺序表L</span></span><br><span class="line">    L.elem = <span class="keyword">new</span> ElemType[MAXSIZE]; <span class="comment">//为顺序表分配内存空间</span></span><br><span class="line">    <span class="keyword">if</span>(!L.elem) <span class="comment">//分配存储失败</span></span><br><span class="line">    <span class="built_in">exit</span>(OVERFLOW); <span class="comment">//则退出程序，返回-2</span></span><br><span class="line">    L.length = <span class="number">0</span>;   <span class="comment">//空表长度为0</span></span><br><span class="line">    <span class="keyword">return</span> OK；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用C语言实现InitList函数：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> OK 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> OVERFLOW -2</span></span><br><span class="line">Status <span class="title function_">InitList_Sq</span><span class="params">(Elemtype *L, <span class="type">int</span> Maxsize)</span></span><br><span class="line">&#123;</span><br><span class="line">    L -&gt; elem = (Elemtype*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Elemtype) * Maxsize);  <span class="comment">//为顺序表分配内存空间</span></span><br><span class="line">    <span class="keyword">if</span>(!(L -&gt; elem))    <span class="comment">//分配存储失败</span></span><br><span class="line">    <span class="keyword">return</span> OVERFLOW;    <span class="comment">//则返回main，返回-2</span></span><br><span class="line">    L -&gt; length = <span class="number">0</span>;    <span class="comment">//空表长度为0</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="DestroyList函数的实现-释放存储空间">DestroyList函数的实现-释放存储空间</h3>
+<p>王卓课上伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">DestroyList</span><span class="params">(SqList &amp;L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(L.elem)</span><br><span class="line">    <span class="keyword">delete</span> L.elem;  <span class="comment">//释放内存空间</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C语言代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">DestroyList</span><span class="params">(SqList* L)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(L.elem)</span><br><span class="line">    <span class="built_in">free</span>(L -&gt; elem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ClearList函数的实现-清空线性表L">ClearList函数的实现-清空线性表L</h3>
+<p>王卓课上伪代码：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ClearList</span><span class="params">(Sqlist &amp;L)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    L.length = <span class="number">0</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>C语言代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">ClearList</span><span class="params">(Sqlist *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L -&gt; length = <span class="number">0</span>;    <span class="comment">//将线性表的长度置零</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://HisenseSilverhand.github.io">Hisense Silverhand</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://hisensesilverhand.github.io/2023/03/03/Sqlist/">http://hisensesilverhand.github.io/2023/03/03/Sqlist/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://HisenseSilverhand.github.io" target="_blank">鼠鼠的藏宝洞</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Data-Structure/">Data Structure</a></div><div class="post_share"><div class="social-share" data-image="https://images6.alphacoders.com/790/790867.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/11/25/book-note/"><img class="next-cover" src="https://images6.alphacoders.com/995/thumbbig-995677.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">book note</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Hisense Silverhand</div><div class="author-info__description">My personal Blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/HisenseSilverhand" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/Hiterwyq@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/1247434215@qq.com" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">顺序表的类型定义：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">顺序表基本操作的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#InitList%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0-%E9%A1%BA%E5%BA%8F%E8%A1%A8L%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">2.1.</span> <span class="toc-text">InitList函数的实现-顺序表L的初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DestroyList%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0-%E9%87%8A%E6%94%BE%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="toc-number">2.2.</span> <span class="toc-text">DestroyList函数的实现-释放存储空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ClearList%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0-%E6%B8%85%E7%A9%BA%E7%BA%BF%E6%80%A7%E8%A1%A8L"><span class="toc-number">2.3.</span> <span class="toc-text">ClearList函数的实现-清空线性表L</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/03/Sqlist/" title="Sqlist"><img src="https://images6.alphacoders.com/790/790867.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sqlist"/></a><div class="content"><a class="title" href="/2023/03/03/Sqlist/" title="Sqlist">Sqlist</a><time datetime="2023-03-03T05:44:58.000Z" title="发表于 2023-03-03 13:44:58">2023-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/25/book-note/" title="book note"><img src="https://images6.alphacoders.com/995/thumbbig-995677.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="book note"/></a><div class="content"><a class="title" href="/2022/11/25/book-note/" title="book note">book note</a><time datetime="2022-11-25T07:24:55.000Z" title="发表于 2022-11-25 15:24:55">2022-11-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/24/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串"><img src="https://images4.alphacoders.com/838/83888.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="字符串"/></a><div class="content"><a class="title" href="/2022/11/24/%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="字符串">字符串</a><time datetime="2022-11-24T10:51:07.000Z" title="发表于 2022-11-24 18:51:07">2022-11-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/22/%E4%BD%8D%E8%BF%90%E7%AE%97/" title="位运算"><img src="https://images2.alphacoders.com/438/thumbbig-438688.webp" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="位运算"/></a><div class="content"><a class="title" href="/2022/11/22/%E4%BD%8D%E8%BF%90%E7%AE%97/" title="位运算">位运算</a><time datetime="2022-11-22T01:42:39.000Z" title="发表于 2022-11-22 09:42:39">2022-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/21/%E5%BC%82%E6%88%96%E5%AE%9A%E7%90%86/" title="异或定理"><img src="https://images6.alphacoders.com/790/790867.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="异或定理"/></a><div class="content"><a class="title" href="/2022/11/21/%E5%BC%82%E6%88%96%E5%AE%9A%E7%90%86/" title="异或定理">异或定理</a><time datetime="2022-11-21T12:24:35.000Z" title="发表于 2022-11-21 20:24:35">2022-11-21</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://images6.alphacoders.com/790/790867.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Hisense Silverhand</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
